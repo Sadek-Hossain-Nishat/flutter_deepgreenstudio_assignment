@@ -1,12 +1,18 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_deepgreenstudio_assignment/view/CustomButton.dart';
 import 'package:flutter_deepgreenstudio_assignment/view/CustomToolbar.dart';
+import 'package:flutter_deepgreenstudio_assignment/view/MenuHeading.dart';
+import 'package:flutter_deepgreenstudio_assignment/view/MenuItems.dart';
 import 'package:flutter_deepgreenstudio_assignment/view/NavRailItems.dart';
 import 'package:flutter_deepgreenstudio_assignment/view/OnlineOrders.dart';
+import 'package:flutter_deepgreenstudio_assignment/view/OrderHistory.dart';
+import 'package:flutter_deepgreenstudio_assignment/view/OrderHistoryItems.dart';
 import 'package:flutter_deepgreenstudio_assignment/view/TopItems.dart';
 import 'package:flutter_deepgreenstudio_assignment/view/UpperTabs.dart';
 
 void main() => runApp(DevicePreview(builder: (context) => const MyApp()));
+//void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -33,66 +39,65 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: Column(
         children: [
+          // custom toolbar
           CustomToolbar(),
           Row(
             children: [
+              // nav rail
               NavRail(),
+              //side bar
               Container(
                   height: 700,
                   width: 1130,
-                  padding: EdgeInsets.only(left: 20),
+                  // padding: EdgeInsets.only(left: 5),
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
+                        // upper tabs
                         UpperTabs(),
                         SizedBox(
                           height: 20,
                         ),
-                        Row(
-                          children: [
-                            // Container(
-                            //   width: 565,
-                            //   height: 250,
-                            //   child: ListView(
-                            //     padding: EdgeInsets.only(left: 10),
-                            //     children: [
-                            //       Text('Top Items',
-                            //           style: TextStyle(
-                            //               fontWeight: FontWeight.bold,
-                            //               fontSize: 25,
-                            //               color: Colors.black)),
-                            //       SizedBox(
-                            //         height: 20,
-                            //       ),
-                            //       Row(
-                            //         children: [
-                            //           Text('Name'),
-                            //           SizedBox(
-                            //             width: 50,
-                            //           ),
-                            //           Text('Ordered'),
-                            //           SizedBox(
-                            //             width: 20,
-                            //           ),
-                            //           Text('Price'),
-                            //           SizedBox(
-                            //             width: 20,
-                            //           ),
-                            //           Text('Total Sold Price'),
-                            //           SizedBox(
-                            //             width: 20,
-                            //           ),
-                            //           Icon(null),
-                            //         ],
-                            //       )
-                            //     ],
-                            //   ),
-                            // )
-
-                            TopItems(),
-                            OnlineOrders()
-                          ],
-                        )
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            //data table
+                            children: [TopItems(), OnlineOrders()],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        //menus
+                        MenuHeading(),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              MenuItems(),
+                              SizedBox(
+                                width: 40,
+                              ),
+                              CustomButton()
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+// order history section
+                        // Row(
+                        //   children: [],
+                        // ),
+                        OrderHistory(),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        OrderHistoryItems()
                       ],
                     ),
                   ))

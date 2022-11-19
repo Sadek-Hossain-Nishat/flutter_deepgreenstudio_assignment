@@ -74,11 +74,11 @@ class CustomToolbar extends StatelessWidget {
             TextField(
               decoration: InputDecoration(
                   filled: true,
-                  fillColor: Colors.lightBlue[50],
+                  fillColor: Colors.transparent,
                   hintText: 'Search here',
                   prefixIcon: Icon(Icons.search),
                   border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
+                      borderSide: BorderSide(color: Colors.transparent),
                       borderRadius: BorderRadius.circular(8))),
             )
           ]),

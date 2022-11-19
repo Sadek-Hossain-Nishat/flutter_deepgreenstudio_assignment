@@ -5,7 +5,7 @@ class TopItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 545,
+      width: 590,
       height: 250,
       child: ListView(
         padding: EdgeInsets.only(left: 10),
@@ -67,89 +67,46 @@ List<TopItemModel> topItemdata = [
       icon: Icon(null)),
 ];
 
-// TextStyle topitemtextStyle =
-//     TextStyle(fontSize: 20, fontWeight: FontWeight.w700);
+List<DataRow> getRows() => topItemdata.asMap().entries.map((entry) {
+      final topItemModel = entry.value;
+      final index = entry.key;
+      final cells = [
+        topItemModel.name,
+        topItemModel.order,
+        topItemModel.price,
+        topItemModel.soldprice,
+      ];
 
-List<DataCell> cells1 = [
-  DataCell(Text('Pasta')),
-  DataCell(
-    Text('300'),
-  ),
-  DataCell(Text('#12.5')),
-  DataCell(Text('#3,750')),
-  DataCell(Icon(
-    Icons.arrow_upward,
-    color: Colors.green,
-  ))
+      return DataRow(cells: getCells(cells, index));
+    }).toList();
+
+List<DataCell> getCells(List<dynamic> cells, dynamic index) {
+  List<DataCell> cellslist = cells
+      .map((cell) => DataCell(Text(
+            cell,
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700),
+          )))
+      .toList();
+  cellslist.add(DataCell(topItemdata[index].icon));
+  return cellslist;
+}
+
+List<String> columnHeadings = [
+  'Name',
+  'Order',
+  'Price',
+  'Total Sold Price',
+  ''
 ];
 
-List<DataCell> cells2 = [
-  DataCell(Text('Chicken')),
-  DataCell(Text('269')),
-  DataCell(Text('#11')),
-  DataCell(Text('#2,959')),
-  DataCell(Icon(
-    Icons.arrow_downward,
-    color: Colors.red,
-  ))
-];
-
-List<DataCell> cells3 = [
-  DataCell(Text('Chicken Roast')),
-  DataCell(Text('211')),
-  DataCell(Text('#13.5')),
-  DataCell(Text('#3,050')),
-  DataCell(Icon(
-    Icons.arrow_upward,
-    color: Colors.green,
-  ))
-];
-
-List<DataCell> cells4 = [
-  DataCell(Text('Pasta')),
-  DataCell(Text('300')),
-  DataCell(Text('#12.5')),
-  DataCell(Text('#3,750')),
-  DataCell(Icon(
-    Icons.arrow_upward,
-    color: Colors.green,
-  ))
-];
-
-List<DataCell> cells5 = [
-  DataCell(Text('Pasta')),
-  DataCell(Text('300')),
-  DataCell(Text('#12.5')),
-  DataCell(Text('#3,750')),
-  DataCell(Icon(null))
-];
-
-List<DataRow> topitemrows = [
-  DataRow(cells: cells1),
-  DataRow(cells: cells2),
-  DataRow(cells: cells1),
-  DataRow(cells: cells2),
-  DataRow(cells: cells5)
-];
+List<DataColumn> getColumns() => List<DataColumn>.generate(
+    columnHeadings.length,
+    (index) => DataColumn(
+            label: Text(
+          columnHeadings[index],
+          style: TextStyle(color: Colors.black45),
+        )));
 
 Widget TopItemRow() {
-  return DataTable(columns: [
-    DataColumn(
-      label: Text(
-        'Name',
-      ),
-    ),
-    DataColumn(
-      label: Text('Order'),
-    ),
-    DataColumn(
-      label: Text('Price'),
-    ),
-    DataColumn(
-      label: Text('Total Sold Price'),
-    ),
-    DataColumn(
-      label: Text(''),
-    ),
-  ], rows: topitemrows);
+  return DataTable(columns: getColumns(), rows: getRows());
 }
